@@ -5,34 +5,40 @@
 
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <h5 class="card-header">Earnings $</h5>
+            <h5 class="card-header">Manage Orders</h5>
+            @if($errors->any())
+            <div class="alert alert-info">
+                {{$errors->first()}}
+            </div>
+            @endif
             <div class="table-responsive text-nowrap">
               <table class="table">
-                <thead class="table-secondary">
+                <thead class="table-dark">
                   <tr>
-                    <th>Order ID</th>
                     <th>Ordered By</th>
-                    <th>Order Details</th>
                     <th>Total Amount</th>
+                    <th>Status</th>
                     <th>Date</th>
-                      <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
                     @foreach ($orders as $o)
                   <tr>
-                    <td>{{ $o->order_id }}</td>
-                    <td>{{ $o->user_id  }}</td>
-                    <td><a href="/seller/order/details/{{ $o->order_id }}" class="btn btn-sm btn-info"><i class='bx bx-info-square' ></i></a></td>
-                    <td>{{ $o->total_price .'$' }}</td>
+                    <td>{{ $o->user_id }}</td>
+                    <td>{{ $o->total_price.'$' }}</td>
+                    <td>{{ $o->status }}</td>
                     <td>{{ $o->order_date }}</td>
-                      <td>{{ $o->status }}</td>
+                      @if($o->status!="Cancelled")
+                    <td><a href="/seller/order/show/{{ $o->order_id }}" class="btn btn-sm btn-dark"><i class='bx bx-up-arrow-circle'></i></a></td>
+                      @else
+                      <td></td>
+                      @endif
                   </tr>
                   @endforeach
                 </tbody>
               </table><br>
-              <h6>&nbsp;&nbsp;&nbsp;Total Earning : {{ $total_amount . "$" }}</h6> <br>
-              &nbsp;&nbsp;&nbsp;<a href="{{ route('report') }}" class="btn btn-sm btn-secondary"><i class='bx bxs-report' ></i></a>
+              &nbsp;&nbsp;&nbsp;<a href="{{ route('or') }}" class="btn btn-sm btn-success"><i class='bx bx-spreadsheet' ></i></a>
               <br>
               {{ $orders->links() }}
               <br>

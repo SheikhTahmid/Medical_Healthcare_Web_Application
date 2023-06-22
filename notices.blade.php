@@ -1,4 +1,4 @@
-@extends('layouts.patient_dash')
+@extends('layouts.seller_dash')
 @section('content')
     <div class="content-wrapper">
         <!-- Content -->
